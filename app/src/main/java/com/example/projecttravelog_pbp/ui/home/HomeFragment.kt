@@ -65,6 +65,7 @@ class HomeFragment : Fragment() {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.navigation_home -> {
+                    view.findNavController().navigate(R.id.action_homeFragment_to_homeFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_add -> {
@@ -72,7 +73,7 @@ class HomeFragment : Fragment() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-
+                    view.findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false

@@ -80,11 +80,11 @@ class AddFragment : Fragment() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_add -> {
-
+                    view.findNavController().navigate(R.id.action_addFragment_to_addFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.navigation_profile -> {
-
+                    view.findNavController().navigate(R.id.action_addFragment_to_profileFragment)
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
