@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#80FFFFFF" /> <!-- Warna latar belakang dengan tingkat transparansi -->
+    <corners android:radius="20dp" /> <!-- Lengkungan sudut TextInputEditText -->
+</shape>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "324370690620",
+    "project_id": "projecttravelog-pbp",
+    "storage_bucket": "projecttravelog-pbp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324370690620:android:40843ef26e4f4b53b70939",
+        "android_client_info": {
+          "package_name": "com.example.projecttravelog_pbp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324370690620-c8u1ice5gnc1s7lo86db5n468nq5t1pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqfbdT6D3-lykqKO9PFFrktoIE81BiAak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324370690620-c8u1ice5gnc1s7lo86db5n468nq5t1pp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
