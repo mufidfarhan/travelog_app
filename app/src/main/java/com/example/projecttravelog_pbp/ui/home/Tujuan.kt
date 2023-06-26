@@ -1,5 +1,7 @@
 package com.example.projecttravelog_pbp.ui.home
 
+import java.util.Date
+
 
 data class Tujuan(
     val desc : String? = null,
@@ -8,6 +10,7 @@ data class Tujuan(
     val tglMulai : String? = null,
     val tujuan : String? = null,
     val user : String? = null,
+    val timestamp: Date? = null,
 )
 //desc
 //"test"

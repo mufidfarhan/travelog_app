@@ -17,6 +17,7 @@ import com.example.projecttravelog_pbp.ui.signin.SignInViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 
 class HomeFragment : Fragment() {
@@ -37,7 +38,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         tujuan = arrayListOf()
         binding.rvTravel.layoutManager = LinearLayoutManager(requireContext())
+
         db.collection("tujuan")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {
@@ -53,14 +56,6 @@ class HomeFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.e("ERROR GET PRODUCTS", exception.message!!)
             }
-//        binding.btnAdd.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_homeFragment_to_addFragment)
-//        }
-//
-//        binding.btnLogout.setOnClickListener {
-//            Firebase.auth.signOut()
-//            it.findNavController().navigate(R.id.signInFragment)
-//        }
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

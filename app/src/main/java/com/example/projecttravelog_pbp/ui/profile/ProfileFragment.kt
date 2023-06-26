@@ -25,9 +25,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnAdd.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_addFragment)
-        }
+//        binding.btnAdd.setOnClickListener {
+//            it.findNavController().navigate(R.id.action_homeFragment_to_addFragment)
+//        }
 
         binding.btnLogout.setOnClickListener {
             Firebase.auth.signOut()

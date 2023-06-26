@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -118,6 +119,7 @@ class AddFragment : Fragment() {
                             "tglAkhir" to tglakhir,
                             "desc" to desc,
                             "user" to Firebase.auth.currentUser?.email,
+                            "timestamp" to FieldValue.serverTimestamp(),
                         )
                         db.collection("tujuan")
                             .add(tujuanMap)
