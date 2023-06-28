@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttravelog_pbp.R
+import com.example.projecttravelog_pbp.data.model.Post
 import com.example.projecttravelog_pbp.databinding.FragmentHomeBinding
-import com.example.projecttravelog_pbp.data.model.Tujuan
 import com.example.projecttravelog_pbp.ui.adapters.TravelAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -19,7 +19,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var tujuan: ArrayList<Tujuan>
+    private lateinit var post: ArrayList<Post>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,21 +31,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tujuan = arrayListOf()
+        post = arrayListOf()
         binding.rvTravel.layoutManager = LinearLayoutManager(requireContext())
 
-        db.collection("tujuan")
+        db.collection("posts")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
-                        val obj = data.toObject(Tujuan::class.java)
+                        val obj = data.toObject(Post::class.java)
                         if (obj != null) {
-                            tujuan.add(obj)
+                            post.add(obj)
                         }
                     }
-                    binding.rvTravel.adapter = TravelAdapter(tujuan)
+                    binding.rvTravel.adapter = TravelAdapter(post)
                 }
             }
             .addOnFailureListener { exception ->

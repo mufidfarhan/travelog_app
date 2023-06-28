@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projecttravelog_pbp.databinding.MyJourneyBinding
-import com.example.projecttravelog_pbp.data.model.Tujuan
+import com.example.projecttravelog_pbp.data.model.Post
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyJourneyAdapter(private val tujuan: ArrayList<Tujuan>) :
+class MyJourneyAdapter(private val tujuan: ArrayList<Post>) :
     RecyclerView.Adapter<MyJourneyAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -62,7 +62,7 @@ class MyJourneyAdapter(private val tujuan: ArrayList<Tujuan>) :
             val dayEnd = dayOfMonthEnd.substring(0, 2)
 
             if (yearStart == yearEnd && monthStart == monthEnd) {
-                result = "$dayStart-$dayEnd $monthStart $yearStart"
+                result = "$dayStart- $dayEnd $monthStart $yearStart"
             } else if (yearStart == yearEnd) {
                 result = "$dayStart $monthStart - $dayEnd $monthEnd $yearStart"
             } else {
@@ -74,12 +74,12 @@ class MyJourneyAdapter(private val tujuan: ArrayList<Tujuan>) :
 
 
 
-        fun bind(item: Tujuan) {
+        fun bind(item: Post) {
             binding.apply {
-                Glide.with(itemView.context).load(item.photo).into(photo)
+                Glide.with(itemView.context).load(item.gambar).into(photo)
                 location.text = item.tujuan
-                date.text = mergeDateRange(item.tglMulai, item.tglAkhir)
-                caption.text = item.desc
+                date.text = mergeDateRange(item.tanggal_mulai, item.tanggal_akhir)
+                caption.text = item.deskripsi
             }
         }
     }

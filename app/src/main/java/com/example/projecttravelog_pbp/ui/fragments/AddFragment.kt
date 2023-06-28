@@ -13,13 +13,14 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.projecttravelog_pbp.R
+import com.example.projecttravelog_pbp.data.model.Post
+import com.example.projecttravelog_pbp.data.model.User
 import com.example.projecttravelog_pbp.databinding.FragmentAddBinding
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -30,6 +31,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FieldValue
 
 class AddFragment : Fragment() {
 
@@ -91,15 +94,174 @@ class AddFragment : Fragment() {
         }
     }
 
+//    private fun add() {
+//        with(binding) {
+//            val tujuan = etTujuan.text.toString().trim()
+//            val tglawal = etTglMulai.text.toString().trim()
+//            val tglakhir = etTglAkhir.text.toString().trim()
+//            val desc = etDescription.text.toString().trim()
+//            if (filePath != null && tujuan.isNotEmpty() && tglawal.isNotEmpty() && tglakhir.isNotEmpty() && desc.isNotEmpty()) {
+//                val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
+//                val uploadTask = ref?.putFile(filePath!!)
+//                uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+//                    if (!task.isSuccessful) {
+//                        task.exception?.let {
+//                            throw it
+//                        }
+//                    }
+//                    return@Continuation ref.downloadUrl
+//                })?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        val downloadUri = task.result
+//                        val tujuanMap = hashMapOf(
+//                            "photo" to downloadUri,
+//                            "tujuan" to tujuan,
+//                            "tglMulai" to tglawal,
+//                            "tglAkhir" to tglakhir,
+//                            "desc" to desc,
+//                            "user" to Firebase.auth.currentUser?.email,
+//                            "timestamp" to FieldValue.serverTimestamp(),
+//                        )
+//                        db.collection("tujuan")
+//                            .add(tujuanMap)
+//                            .addOnSuccessListener {
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    "Berhasil menambahkan!",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                                findNavController().navigate(R.id.homeFragment)
+//                            }.addOnFailureListener { e ->
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    e.message.toString(),
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            task.exception?.message.toString(),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }?.addOnFailureListener {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        it.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            } else {
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Field harus terisi!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
+//    private fun add() {
+//        with(binding) {
+//            val tujuan = etTujuan.text.toString().trim()
+//            val tglawal = etTglMulai.text.toString().trim()
+//            val tglakhir = etTglAkhir.text.toString().trim()
+//            val desc = etDescription.text.toString().trim()
+//
+//            if (filePath != null && tujuan.isNotEmpty() && tglawal.isNotEmpty() && tglakhir.isNotEmpty() && desc.isNotEmpty()) {
+//                val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
+//                val uploadTask = ref?.putFile(filePath!!)
+//
+//                uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+//                    if (!task.isSuccessful) {
+//                        task.exception?.let {
+//                            throw it
+//                        }
+//                    }
+//                    return@Continuation ref.downloadUrl
+//                })?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        val downloadUri = task.result
+//                        val currentUser = Firebase.auth.currentUser
+//                        val timestamp = Timestamp.now().toDate()
+//                        val user = User(
+//                            username = currentUser?.displayName,
+//                            email = currentUser?.email
+//                        )
+//                        val travelLog = Post(
+//                            user = currentUser?.email,
+//                            tujuan = tujuan,
+//                            gambar = downloadUri.toString(),
+//                            tanggal_mulai = tglawal,
+//                            tanggal_akhir = tglakhir,
+//                            timestamp = timestamp,
+//                            deskripsi = desc
+//                        )
+//
+//                        db.collection("users")
+//                            .document(currentUser?.uid ?: "")
+//                            .set(user)
+//                            .addOnSuccessListener {
+//                                db.collection("posts")
+//                                    .add(travelLog)
+//                                    .addOnSuccessListener { documentReference ->
+//                                        Toast.makeText(
+//                                            requireContext(),
+//                                            "Berhasil menambahkan!",
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//                                        findNavController().navigate(R.id.homeFragment)
+//                                    }
+//                                    .addOnFailureListener { e ->
+//                                        Toast.makeText(
+//                                            requireContext(),
+//                                            e.message.toString(),
+//                                            Toast.LENGTH_SHORT
+//                                        ).show()
+//                                    }
+//                            }
+//                            .addOnFailureListener { e ->
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    e.message.toString(),
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                    } else {
+//                        Toast.makeText(
+//                            requireContext(),
+//                            task.exception?.message.toString(),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }?.addOnFailureListener {
+//                    Toast.makeText(
+//                        requireContext(),
+//                        it.message.toString(),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            } else {
+//                Toast.makeText(
+//                    requireContext(),
+//                    "Field harus terisi!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    }
+
     private fun add() {
         with(binding) {
             val tujuan = etTujuan.text.toString().trim()
             val tglawal = etTglMulai.text.toString().trim()
             val tglakhir = etTglAkhir.text.toString().trim()
             val desc = etDescription.text.toString().trim()
+
             if (filePath != null && tujuan.isNotEmpty() && tglawal.isNotEmpty() && tglakhir.isNotEmpty() && desc.isNotEmpty()) {
                 val ref = storageReference?.child("uploads/" + UUID.randomUUID().toString())
                 val uploadTask = ref?.putFile(filePath!!)
+
                 uploadTask?.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
                     if (!task.isSuccessful) {
                         task.exception?.let {
@@ -110,31 +272,44 @@ class AddFragment : Fragment() {
                 })?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val downloadUri = task.result
-                        val tujuanMap = hashMapOf(
-                            "photo" to downloadUri,
-                            "tujuan" to tujuan,
-                            "tglMulai" to tglawal,
-                            "tglAkhir" to tglakhir,
-                            "desc" to desc,
-                            "user" to Firebase.auth.currentUser?.email,
-                            "timestamp" to FieldValue.serverTimestamp(),
+                        val currentUser = Firebase.auth.currentUser
+                        val timestamp = Timestamp.now().toDate()
+                        val user = User(
+                            username = currentUser?.displayName,
+                            email = currentUser?.email
                         )
-                        db.collection("tujuan")
-                            .add(tujuanMap)
-                            .addOnSuccessListener {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Berhasil menambahkan!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                findNavController().navigate(R.id.homeFragment)
-                            }.addOnFailureListener { e ->
-                                Toast.makeText(
-                                    requireContext(),
-                                    e.message.toString(),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                        val travelLog = Post(
+                            user = currentUser?.email,
+                            tujuan = tujuan,
+                            gambar = downloadUri.toString(),
+                            tanggal_mulai = tglawal,
+                            tanggal_akhir = tglakhir,
+                            timestamp = timestamp,
+                            deskripsi = desc
+                        )
+
+                        val userRef = db.collection("users").document(currentUser?.uid ?: "")
+                        val postRef = db.collection("posts")
+
+                        db.runBatch { batch ->
+                            // Update jumlah postingan pengguna
+                            batch.update(userRef, "jumlah_postingan", FieldValue.increment(1))
+                            // Tambahkan postingan baru ke koleksi "posts"
+                            batch.set(postRef.document(), travelLog)
+                        }.addOnSuccessListener {
+                            Toast.makeText(
+                                requireContext(),
+                                "Berhasil menambahkan!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            findNavController().navigate(R.id.homeFragment)
+                        }.addOnFailureListener { e ->
+                            Toast.makeText(
+                                requireContext(),
+                                e.message.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -158,6 +333,8 @@ class AddFragment : Fragment() {
             }
         }
     }
+
+
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

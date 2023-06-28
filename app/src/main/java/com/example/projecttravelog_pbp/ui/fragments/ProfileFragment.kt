@@ -10,7 +10,8 @@ import com.example.projecttravelog_pbp.databinding.FragmentProfileBinding
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttravelog_pbp.R
-import com.example.projecttravelog_pbp.data.model.Tujuan
+import com.example.projecttravelog_pbp.data.model.Post
+import com.example.projecttravelog_pbp.data.model.User
 import com.example.projecttravelog_pbp.ui.adapters.MyJourneyAdapter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,7 +22,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private val db = FirebaseFirestore.getInstance()
-    private lateinit var tujuan: ArrayList<Tujuan>
+    private lateinit var post: ArrayList<Post>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,21 +34,47 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tujuan = arrayListOf()
+        post = arrayListOf()
         binding.rvTravel.layoutManager = LinearLayoutManager(requireContext())
 
-        db.collection("tujuan")
+
+        db.collection("users")
+            .whereEqualTo("email", Firebase.auth.currentUser?.email)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    val document = querySnapshot.documents[0]
+                    val user = document.toObject(User::class.java)
+                    binding.name.text = user?.username
+                    if (user?.jumlah_postingan == null) {
+                        binding.totalPost.text = "0"
+                    } else {
+                        binding.totalPost.text = user?.jumlah_postingan.toString()
+                    }
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("ERROR GET USER", exception.message!!)
+            }
+        
+        
+        db.collection("posts")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
-                        val obj = data.toObject(Tujuan::class.java)
-                        if (obj != null) {
-                            tujuan.add(obj)
+                        val obj = data.toObject(Post::class.java)
+                        if (obj?.user == Firebase.auth.currentUser?.email) {
+                            if (obj != null) {
+                                if (obj.user == Firebase.auth.currentUser?.email) {
+                                    post.add(obj)
+                                }
+                            }
                         }
                     }
-                    binding.rvTravel.adapter = MyJourneyAdapter(tujuan)
+                    binding.rvTravel.adapter = MyJourneyAdapter(post)
                 }
             }
             .addOnFailureListener { exception ->

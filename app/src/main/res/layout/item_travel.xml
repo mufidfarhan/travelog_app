@@ -28,8 +28,8 @@
             app:cardElevation="4dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            app:contentPaddingLeft="8dp"
-            app:contentPaddingRight="8dp"
+            app:contentPaddingLeft="12dp"
+            app:contentPaddingRight="12dp"
             >
 
             <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="12dp">
+                    android:paddingVertical="12dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="40dp"
@@ -52,7 +52,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/login" />
+                            android:src="@drawable/userprofile3" />
                     </androidx.cardview.widget.CardView>
 
                     <TextView
@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:paddingVertical="12dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -95,15 +95,6 @@
                             android:text="Destination"
                             android:layout_marginRight="12dp"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
-
-                        <!--                    <TextView-->
-                        <!--                        android:layout_width="wrap_content"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:layout_marginHorizontal="12dp"-->
-                        <!--                        android:text="⚫"-->
-                        <!--                        android:textColor="@color/black"-->
-                        <!--                        android:textSize="5sp"-->
-                        <!--                        />-->
 
                         <TextView
                             android:id="@+id/date"
