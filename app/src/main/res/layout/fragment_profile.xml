@@ -100,7 +100,7 @@
                             android:layout_width="282dp"
                             android:layout_height="40dp"
                             android:gravity="center_vertical"
-                            android:text="username"
+                            android:text=""
                             android:textAppearance="?attr/textAppearanceHeadline5"
                             android:textColor="?android:attr/textColorPrimary"
                             android:textStyle="bold" />
@@ -120,7 +120,7 @@
                                     android:id="@+id/totalPost"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text=""
                                     android:layout_marginRight="4dp"
 
                                     android:textAppearance="?attr/textAppearanceHeadline6"

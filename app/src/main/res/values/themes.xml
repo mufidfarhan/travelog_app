@@ -14,9 +14,9 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="customImageView8Percent" parent="">
+    <style name="customImageView2Percent" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">10%</item>
+        <item name="cornerSize">2%</item>
     </style>
 
     <style name="Theme.Velsto" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
