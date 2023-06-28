@@ -1,4 +1,4 @@
-package com.example.projecttravelog_pbp.ui.home
+package com.example.projecttravelog_pbp.data.model
 
 import java.util.Date
 

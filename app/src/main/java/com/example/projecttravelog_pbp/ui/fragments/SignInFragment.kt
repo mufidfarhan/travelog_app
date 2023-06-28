@@ -1,9 +1,6 @@
-package com.example.projecttravelog_pbp.ui.signin
+package com.example.projecttravelog_pbp.ui.fragments
 
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projecttravelog_pbp.R
 import com.example.projecttravelog_pbp.databinding.FragmentSignInBinding
-import com.example.projecttravelog_pbp.databinding.FragmentWelcomeBinding
+import com.example.projecttravelog_pbp.ui.viewmodels.SignInViewModel
 
 class SignInFragment : Fragment() {
 

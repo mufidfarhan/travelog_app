@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.projecttravelog_pbp.ui.splash.SplashFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.projecttravelog_pbp.ui.signin.SignInFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.projecttravelog_pbp.ui.signup.SignUpFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.projecttravelog_pbp.ui.home.HomeFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
 
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.projecttravelog_pbp.ui.add.AddFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.AddFragment"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add">
 
@@ -77,7 +77,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.projecttravelog_pbp.ui.profile.ProfileFragment"
+        android:name="com.example.projecttravelog_pbp.ui.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile">
 

@@ -1,4 +1,4 @@
-package com.example.projecttravelog_pbp.ui.splash
+package com.example.projecttravelog_pbp.ui.fragments
 
 import android.os.Bundle
 import android.os.Handler

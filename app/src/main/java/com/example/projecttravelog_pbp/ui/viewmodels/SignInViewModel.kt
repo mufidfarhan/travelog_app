@@ -1,4 +1,4 @@
-package com.example.projecttravelog_pbp.ui.signin
+package com.example.projecttravelog_pbp.ui.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

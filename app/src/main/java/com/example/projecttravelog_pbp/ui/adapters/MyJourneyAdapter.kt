@@ -1,23 +1,24 @@
-package com.example.projecttravelog_pbp.ui.home
+package com.example.projecttravelog_pbp.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.projecttravelog_pbp.databinding.ItemTravelBinding
+import com.example.projecttravelog_pbp.databinding.MyJourneyBinding
+import com.example.projecttravelog_pbp.data.model.Tujuan
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Adapter(private val tujuan: ArrayList<Tujuan>) :
-    RecyclerView.Adapter<Adapter.ListViewHolder>() {
+class MyJourneyAdapter(private val tujuan: ArrayList<Tujuan>) :
+    RecyclerView.Adapter<MyJourneyAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
     ): ListViewHolder =
         ListViewHolder(
-            ItemTravelBinding.inflate(
+            MyJourneyBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -29,7 +30,7 @@ class Adapter(private val tujuan: ArrayList<Tujuan>) :
 
     override fun getItemCount(): Int = tujuan.size
 
-    inner class ListViewHolder(private val binding: ItemTravelBinding) :
+    inner class ListViewHolder(private val binding: MyJourneyBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private fun mergeDateRange(startDate: String?, endDate: String?): String {
@@ -76,7 +77,6 @@ class Adapter(private val tujuan: ArrayList<Tujuan>) :
         fun bind(item: Tujuan) {
             binding.apply {
                 Glide.with(itemView.context).load(item.photo).into(photo)
-                name.text = item.user
                 location.text = item.tujuan
                 date.text = mergeDateRange(item.tglMulai, item.tglAkhir)
                 caption.text = item.desc

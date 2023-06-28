@@ -1,4 +1,4 @@
-package com.example.projecttravelog_pbp.ui.detail
+package com.example.projecttravelog_pbp.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

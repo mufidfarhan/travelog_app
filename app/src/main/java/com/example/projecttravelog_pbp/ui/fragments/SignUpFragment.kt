@@ -1,6 +1,5 @@
-package com.example.projecttravelog_pbp.ui.signup
+package com.example.projecttravelog_pbp.ui.fragments
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -12,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.projecttravelog_pbp.R
 import com.example.projecttravelog_pbp.databinding.FragmentSignUpBinding
-import java.util.regex.Pattern
+import com.example.projecttravelog_pbp.ui.viewmodels.SignUpViewModel
 
 class SignUpFragment : Fragment() {
 
