@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttravelog_pbp.R
 import com.example.projecttravelog_pbp.data.model.Post
 import com.example.projecttravelog_pbp.databinding.FragmentHomeBinding
-import com.example.projecttravelog_pbp.ui.adapters.TravelAdapter
+import com.example.projecttravelog_pbp.ui.adapters.PostsAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PostsAdapter.ItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private val db = FirebaseFirestore.getInstance()
@@ -40,12 +40,14 @@ class HomeFragment : Fragment() {
             .addOnSuccessListener {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
+                        val postId = data.id
                         val obj = data.toObject(Post::class.java)
                         if (obj != null) {
+                            obj.id = postId
                             post.add(obj)
                         }
                     }
-                    binding.rvTravel.adapter = TravelAdapter(post)
+                    binding.rvTravel.adapter = PostsAdapter(post, this)
                 }
             }
             .addOnFailureListener { exception ->
@@ -69,5 +71,13 @@ class HomeFragment : Fragment() {
                 else -> return@setOnNavigationItemSelectedListener false
             }
         }
+    }
+    override fun onItemClick(postId: String) {
+
+        // Menggunakan ID post untuk tindakan yang diinginkan
+        Log.d("Clicked Post ID", postId)
+        val bundle = Bundle()
+        bundle.putString("postId", postId)
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_detailFragment, bundle)
     }
 }

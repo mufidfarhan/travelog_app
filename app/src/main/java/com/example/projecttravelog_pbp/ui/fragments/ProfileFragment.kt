@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttravelog_pbp.R
 import com.example.projecttravelog_pbp.data.model.Post
 import com.example.projecttravelog_pbp.data.model.User
-import com.example.projecttravelog_pbp.ui.adapters.MyJourneyAdapter
+import com.example.projecttravelog_pbp.ui.adapters.MyPostsAdapter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -74,16 +74,12 @@ class ProfileFragment : Fragment() {
                             }
                         }
                     }
-                    binding.rvTravel.adapter = MyJourneyAdapter(post)
+                    binding.rvTravel.adapter = MyPostsAdapter(post)
                 }
             }
             .addOnFailureListener { exception ->
                 Log.e("ERROR GET PRODUCTS", exception.message!!)
             }
-
-//        binding.btnAdd.setOnClickListener {
-//            it.findNavController().navigate(R.id.action_homeFragment_to_addFragment)
-//        }
 
         binding.btnLogout.setOnClickListener {
             Firebase.auth.signOut()

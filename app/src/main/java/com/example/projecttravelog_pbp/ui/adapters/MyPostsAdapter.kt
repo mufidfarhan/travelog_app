@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyJourneyAdapter(private val tujuan: ArrayList<Post>) :
-    RecyclerView.Adapter<MyJourneyAdapter.ListViewHolder>() {
+class MyPostsAdapter(private val tujuan: ArrayList<Post>) :
+    RecyclerView.Adapter<MyPostsAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -58,11 +58,11 @@ class MyJourneyAdapter(private val tujuan: ArrayList<Post>) :
 
             val result: String
 
-            val dayStart = dayOfMonthStart.substring(0, 2)
-            val dayEnd = dayOfMonthEnd.substring(0, 2)
+            val dayStart = dayOfMonthStart.substringBefore(' ')
+            val dayEnd = dayOfMonthEnd.substringBefore(' ')
 
             if (yearStart == yearEnd && monthStart == monthEnd) {
-                result = "$dayStart- $dayEnd $monthStart $yearStart"
+                result = "$dayStart - $dayEnd $monthStart $yearStart"
             } else if (yearStart == yearEnd) {
                 result = "$dayStart $monthStart - $dayEnd $monthEnd $yearStart"
             } else {

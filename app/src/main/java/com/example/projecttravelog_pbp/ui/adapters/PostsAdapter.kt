@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class TravelAdapter(private val posts: ArrayList<Post>) :
-    RecyclerView.Adapter<TravelAdapter.ListViewHolder>() {
+class PostsAdapter(private val posts: ArrayList<Post>, private val itemClickListener: ItemClickListener) :
+    RecyclerView.Adapter<PostsAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -39,23 +39,13 @@ class TravelAdapter(private val posts: ArrayList<Post>) :
             }
 
             val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("d", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
 
             val start = inputFormat.parse(startDate)
             val end = inputFormat.parse(endDate)
-//
-//            val dayOfMonthStart = outputFormat.format(start)
-//            val dayOfMonthEnd = outputFormat.format(end)
 
-            val startDate = Date()
-            val formattedStartDate = outputFormat.format(startDate)
-
-            val endDate = Date()
-            val formattedEndDate = outputFormat.format(endDate)
-
-
-
-
+            val dayOfMonthStart = outputFormat.format(start)
+            val dayOfMonthEnd = outputFormat.format(end)
 
             val calendarStart = Calendar.getInstance().apply { time = start }
             val calendarEnd = Calendar.getInstance().apply { time = end }
@@ -68,15 +58,15 @@ class TravelAdapter(private val posts: ArrayList<Post>) :
 
             val result: String
 
-//            val dayStart = dayOfMonthStart.substring(0, 2)
-//            val dayEnd = dayOfMonthEnd.substring(0, 2)
+            val dayStart = dayOfMonthStart.substringBefore(' ')
+            val dayEnd = dayOfMonthEnd.substringBefore(' ')
 
             if (yearStart == yearEnd && monthStart == monthEnd) {
-                result = "$formattedStartDate - $formattedEndDate $monthStart $yearStart"
+                result = "$dayStart - $dayEnd $monthStart $yearStart"
             } else if (yearStart == yearEnd) {
-                result = "$formattedStartDate $monthStart - $formattedEndDate $monthEnd $yearStart"
+                result = "$dayStart $monthStart - $dayEnd $monthEnd $yearStart"
             } else {
-                result = "$formattedStartDate $monthStart $yearStart - $formattedEndDate $monthEnd $yearEnd"
+                result = "$dayStart $monthStart $yearStart - $dayEnd $monthEnd $yearEnd"
             }
 
             return result
@@ -91,6 +81,13 @@ class TravelAdapter(private val posts: ArrayList<Post>) :
                 location.text = item.tujuan
                 date.text = mergeDateRange(item.tanggal_mulai, item.tanggal_akhir)
                 caption.text = item.deskripsi
+
+                itemView.setOnClickListener {                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val post = posts[position]
+                        post.id?.let { it1 -> itemClickListener.onItemClick(it1) }
+                    }
+                }
             }
         }
 
@@ -102,5 +99,10 @@ class TravelAdapter(private val posts: ArrayList<Post>) :
             }
             return result
         }
+    }
+
+    // Antarmuka untuk penanganan klik item
+    interface ItemClickListener {
+        fun onItemClick(postId: String)
     }
 }
