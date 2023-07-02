@@ -13,6 +13,11 @@ import java.util.*
 class PostsAdapter(private val posts: ArrayList<Post>, private val itemClickListener: ItemClickListener) :
     RecyclerView.Adapter<PostsAdapter.ListViewHolder>() {
 
+
+    // Antarmuka untuk penanganan klik item
+    interface ItemClickListener {
+        fun onItemClick(postId: String)
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -82,7 +87,8 @@ class PostsAdapter(private val posts: ArrayList<Post>, private val itemClickList
                 date.text = mergeDateRange(item.tanggal_mulai, item.tanggal_akhir)
                 caption.text = item.deskripsi
 
-                itemView.setOnClickListener {                    val position = adapterPosition
+                itemView.setOnClickListener {
+                    val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val post = posts[position]
                         post.id?.let { it1 -> itemClickListener.onItemClick(it1) }
@@ -101,8 +107,4 @@ class PostsAdapter(private val posts: ArrayList<Post>, private val itemClickList
         }
     }
 
-    // Antarmuka untuk penanganan klik item
-    interface ItemClickListener {
-        fun onItemClick(postId: String)
-    }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttravelog_pbp.R
 import com.example.projecttravelog_pbp.data.model.Post
 import com.example.projecttravelog_pbp.data.model.User
+import com.example.projecttravelog_pbp.databinding.FragmentDetailBinding
 import com.example.projecttravelog_pbp.ui.adapters.MyPostsAdapter
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -51,7 +52,6 @@ class ProfileFragment : Fragment() {
                     } else {
                         binding.totalPost.text = user?.jumlah_postingan.toString()
                     }
-
                 }
             }
             .addOnFailureListener { exception ->
@@ -65,16 +65,16 @@ class ProfileFragment : Fragment() {
             .addOnSuccessListener {
                 if (!it.isEmpty) {
                     for (data in it.documents) {
+                        val postId = data.id
                         val obj = data.toObject(Post::class.java)
                         if (obj?.user == Firebase.auth.currentUser?.email) {
                             if (obj != null) {
-                                if (obj.user == Firebase.auth.currentUser?.email) {
-                                    post.add(obj)
-                                }
+                                obj.id = postId
+                                post.add(obj)
                             }
                         }
                     }
-                    binding.rvTravel.adapter = MyPostsAdapter(post)
+                    binding.rvTravel.adapter = MyPostsAdapter(post, this)
                 }
             }
             .addOnFailureListener { exception ->
@@ -103,5 +103,13 @@ class ProfileFragment : Fragment() {
                 else -> return@setOnNavigationItemSelectedListener false
             }
         }
+    }
+    fun onItemClick(postId: String) {
+
+        // Menggunakan ID post untuk tindakan yang diinginkan
+        Log.d("Clicked Post ID", postId)
+        val bundle = Bundle()
+        bundle.putString("postId", postId)
+        view?.findNavController()?.navigate(R.id.action_profileFragment_to_detailFragment, bundle)
     }
 }

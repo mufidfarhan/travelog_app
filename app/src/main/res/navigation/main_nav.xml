@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_profileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
 

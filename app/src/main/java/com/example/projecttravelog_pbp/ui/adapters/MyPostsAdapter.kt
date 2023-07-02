@@ -6,13 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projecttravelog_pbp.databinding.MyJourneyBinding
 import com.example.projecttravelog_pbp.data.model.Post
+import com.example.projecttravelog_pbp.ui.fragments.ProfileFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class MyPostsAdapter(private val tujuan: ArrayList<Post>) :
+class MyPostsAdapter(private val posts: ArrayList<Post>, private val itemClickListener: ProfileFragment) :
     RecyclerView.Adapter<MyPostsAdapter.ListViewHolder>() {
 
+    interface ItemClickListener {
+        fun onItemClick(postId: String)
+    }
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
@@ -26,9 +30,9 @@ class MyPostsAdapter(private val tujuan: ArrayList<Post>) :
         )
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) =
-        holder.bind(tujuan[position])
+        holder.bind(posts[position])
 
-    override fun getItemCount(): Int = tujuan.size
+    override fun getItemCount(): Int = posts.size
 
     inner class ListViewHolder(private val binding: MyJourneyBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -80,6 +84,14 @@ class MyPostsAdapter(private val tujuan: ArrayList<Post>) :
                 location.text = item.tujuan
                 date.text = mergeDateRange(item.tanggal_mulai, item.tanggal_akhir)
                 caption.text = item.deskripsi
+
+                itemView.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val post = posts[position]
+                        post.id?.let { it1 -> itemClickListener.onItemClick(it1) }
+                    }
+                }
             }
         }
     }
