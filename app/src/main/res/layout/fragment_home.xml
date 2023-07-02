@@ -7,8 +7,6 @@
     tools:context=".ui.fragments.HomeFragment"
     android:background="@color/gray">
 
-
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

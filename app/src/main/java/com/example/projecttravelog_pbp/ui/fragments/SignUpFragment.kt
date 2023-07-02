@@ -30,7 +30,7 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSignUp.setOnClickListener {
-            val email = binding.txtEmail.text.toString()
+            val email = binding.txtEmail.text.toString().toLowerCase()
             val password = binding.txtPassword.text.toString()
 
             // memvalidasi jika emailkosong
@@ -48,7 +48,7 @@ class SignUpFragment : Fragment() {
             // validasi panjang username
             val username = email.substringBefore('@')
             if (username.length < 4) {
-                binding.txtEmail.error = "Minimum 6 character for username"
+                binding.txtEmail.error = "Minimum 4 character for username"
                 binding.txtEmail.requestFocus()
                 return@setOnClickListener
             }

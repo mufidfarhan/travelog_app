@@ -190,7 +190,4 @@
             </com.google.android.material.card.MaterialCardView>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
