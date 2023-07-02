@@ -41,19 +41,26 @@ class SignUpFragment : Fragment() {
             }
             // validasi jika email tidak sesuai
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.txtEmail.error = "invalid e-mail".toString()
+                binding.txtEmail.error = "Invalid e-mail".toString()
+                binding.txtEmail.requestFocus()
+                return@setOnClickListener
+            }
+            // validasi panjang username
+            val username = email.substringBefore('@')
+            if (username.length < 4) {
+                binding.txtEmail.error = "Minimum 6 character for username"
                 binding.txtEmail.requestFocus()
                 return@setOnClickListener
             }
             //valdasi passowrd
             if (password.isEmpty()) {
-                binding.txtPassword.error = "password is required".toString()
+                binding.txtPassword.error = "Password is required".toString()
                 binding.txtPassword.requestFocus()
                 return@setOnClickListener
             }
             // validasi panjang password
             if (password.length < 6) {
-                binding.txtPassword.error = "minimum 6 charachter password".toString()
+                binding.txtPassword.error = "Minimum 6 charachter password".toString()
                 binding.txtPassword.requestFocus()
                 return@setOnClickListener
             }

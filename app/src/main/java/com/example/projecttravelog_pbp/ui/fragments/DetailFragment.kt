@@ -81,9 +81,6 @@ class DetailFragment : Fragment() {
                             if (obj?.id_perjalanan == postId) {
                                 if (obj != null) {
                                     comment.add(obj)
-//                                    if (obj.user == Firebase.auth.currentUser?.email) {
-//                                        comment.add(obj)
-//                                    }
                                 }
                             }
                         }
@@ -93,27 +90,6 @@ class DetailFragment : Fragment() {
                 .addOnFailureListener { exception ->
                     Log.e("ERROR GET PRODUCTS", exception.message!!)
                 }
-
-//            db.collection("comments")
-//                .whereEqualTo("id_perjalanan", postId)
-//                .orderBy("timestamp", Query.Direction.DESCENDING)
-//                .get()
-//                .addOnSuccessListener { querySnapshot ->
-//                    val commentList = ArrayList<Comment>()
-//
-//                    for (document in querySnapshot.documents) {
-//                        val postId = document.id
-//                        val obj = document.toObject(Comment::class.java)
-//                        if (obj != null) {
-//                            commentList.add(obj)
-//                        }
-//                    }
-//
-//                    binding.rvComment.adapter = CommentsAdapter(commentList)
-//                }
-//                .addOnFailureListener { exception ->
-//                    Log.e("ERROR GET COMMENTS", exception.message!!)
-//                }
 
         } else {
             Log.e("ERROR", "postId is null")
@@ -137,7 +113,7 @@ class DetailFragment : Fragment() {
                         val item = querySnapshot.toObject(Post::class.java)
                         if (item != null) {
                             val comment = Comment(
-                                user = item.user,
+                                user = Firebase.auth.currentUser?.email,
                                 id_perjalanan = postId,
                                 timestamp = timestamp,
                                 komentar = commentText
@@ -148,7 +124,11 @@ class DetailFragment : Fragment() {
                                 .addOnSuccessListener { documentReference ->
                                     Log.d("TAG", "Data added successfully with ID: ${documentReference.id}")
 
+                                    // Reset input teks komentar
                                     binding.textComment.text = null
+
+                                    // Memperbarui komentar
+                                    updateComments()
                                 }
                                 .addOnFailureListener { e ->
                                     Log.e("TAG", "Error adding data to Firestore", e)
@@ -163,6 +143,31 @@ class DetailFragment : Fragment() {
             Log.e("ERROR", "postId is null")
         }
     }
+
+    private fun updateComments() {
+        comment.clear() // Menghapus komentar yang ada sebelumnya
+
+        db.collection("comments")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (!querySnapshot.isEmpty) {
+                    for (data in querySnapshot.documents) {
+                        val obj = data.toObject(Comment::class.java)
+                        if (obj?.id_perjalanan == postId) {
+                            if (obj != null) {
+                                comment.add(obj)
+                            }
+                        }
+                    }
+                    binding.rvComment.adapter?.notifyDataSetChanged()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("ERROR GET COMMENTS", exception.message!!)
+            }
+    }
+
 
 
     private fun mergeDateRange(startDate: String?, endDate: String?): String {
